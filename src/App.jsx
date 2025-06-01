@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Copy, Check } from "lucide-react";
+import { Copy, Check, Home, Info } from "lucide-react";
 
 export default function CurrencyConverter() {
   const [bob, setBob] = useState("");
-  const [rateBobToArs, setRateBobToArs] = useState("5");
-  const [usdtPriceBob, setUsdtPriceBob] = useState("");
+  const [rateBobToArs, setRateBobToArs] = useState("171.40");
+  const [usdtPriceBob, setUsdtPriceBob] = useState("16.30");
   const [copied, setCopied] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   const normalizeInput = (value) => value.replace(",", ".");
 
@@ -25,15 +26,41 @@ export default function CurrencyConverter() {
     setTimeout(() => setCopied(null), 1500);
   };
 
+  const resetInputs = () => {
+    setBob("");
+    setRateBobToArs("5");
+    setUsdtPriceBob("");
+  };
+
   return (
-    <div className="min-h-screen flex flex-col justify-between bg-gray-100 p-4 font-sans">
-      <div className="flex-grow flex items-center justify-center">
+    <div className="min-h-screen flex flex-col justify-between bg-gray-100 font-sans relative">
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-xl shadow-xl max-w-sm w-full">
+            <h2 className="text-xl font-bold text-center mb-2">Desarrollador</h2>
+            <p className="text-gray-700 text-center mb-4">
+              Desarrollado por Mauricio Leon<br />
+              Versión 1.0<br />
+              Correo: jmauricioleo@gmail.com<br />
+              WhatsApp: <a href='https://wa.me/59170848189' target='_blank' className='text-blue-600 underline'>+59170848189</a>
+            </p>
+            <button
+              onClick={() => setShowModal(false)}
+              className="w-full bg-indigo-600 text-white py-2 rounded-xl font-semibold hover:bg-indigo-700"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      )}
+
+      <div className="flex-grow flex items-center justify-center p-4">
         <div className="bg-white shadow-xl rounded-2xl p-6 w-full max-w-md">
           <div className="flex flex-col items-center mb-6">
             <img
               src="/style_converter_logo_cropped.png"
               alt="Style Converter Logo"
-              className="w-24 h-24 mb-2"
+              className="w-32 h-32 mb-3"
             />
             <h1 className="text-3xl font-extrabold text-center text-indigo-700 tracking-tight">
               Calculadora de Divisas
@@ -52,7 +79,7 @@ export default function CurrencyConverter() {
 
           <div className="grid grid-cols-1 gap-4 mb-6">
             <div>
-              <label className="block text-sm font-medium text-gray-600">Tasa BOB → ARS</label>
+              <label className="block text-sm font-medium text-gray-600">BOB - ARS</label>
               <input
                 type="text"
                 inputMode="decimal"
@@ -74,9 +101,9 @@ export default function CurrencyConverter() {
             </div>
           </div>
 
-          <motion.div 
-            initial={{ opacity: 0, y: 10 }} 
-            animate={{ opacity: 1, y: 0 }} 
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
             className="bg-gradient-to-br from-gray-50 to-gray-100 p-5 rounded-2xl shadow-inner"
           >
@@ -112,8 +139,15 @@ export default function CurrencyConverter() {
         </div>
       </div>
 
-      <footer className="text-center text-gray-400 text-sm mt-4">
-        Desarrollado por Mauricio Leon
+      <footer className="bg-white border-t shadow-inner px-6 py-3 flex justify-around text-sm text-gray-500">
+        <button onClick={resetInputs} className="flex flex-col items-center">
+          <Home size={20} />
+          <span>Inicio</span>
+        </button>
+        <button onClick={() => setShowModal(true)} className="flex flex-col items-center">
+          <Info size={20} />
+          <span>Info</span>
+        </button>
       </footer>
     </div>
   );
