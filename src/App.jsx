@@ -60,7 +60,7 @@ export default function CurrencyConverter() {
             <img
               src="/style_converter_logo_cropped.png"
               alt="Style Converter Logo"
-              className="w-80 h-80 mb-4"
+              className="max-w-xs w-full h-auto mb-4"
             />
             <h1 className="text-3xl font-extrabold text-center text-indigo-700 tracking-tight">
               Calculadora de Divisas
