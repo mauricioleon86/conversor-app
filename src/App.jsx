@@ -5,9 +5,11 @@ export default function CurrencyConverter() {
   const [rateBobToArs, setRateBobToArs] = useState("5"); // 1 BOB = 5 ARS
   const [usdtPriceBob, setUsdtPriceBob] = useState(""); // precio manual del USDT en BOB
 
+  const normalizeInput = (value) => value.replace(",", ".");
+
   const parsedBob = parseFloat(bob) || 0;
-  const parsedRateBobToArs = parseFloat(rateBobToArs) || 0;
-  const parsedUsdtPriceBob = parseFloat(usdtPriceBob) || 0;
+  const parsedRateBobToArs = parseFloat(normalizeInput(rateBobToArs)) || 0;
+  const parsedUsdtPriceBob = parseFloat(normalizeInput(usdtPriceBob)) || 0;
 
   const ars = parsedBob * parsedRateBobToArs;
   const arsPerUsdt = 1210.67; // valor fijo basado en Saldo.ar (17000 / 14.05)
@@ -22,7 +24,7 @@ export default function CurrencyConverter() {
 
           <label className="block mb-2 font-medium">Monto en Bolivianos (BOB)</label>
           <input
-            type="number"
+            type="text"
             inputMode="decimal"
             value={bob}
             placeholder="Ingresa el monto"
@@ -34,8 +36,7 @@ export default function CurrencyConverter() {
             <div>
               <label className="block text-sm font-medium">Tasa BOB → ARS</label>
               <input
-                type="number"
-                step="0.0001"
+                type="text"
                 inputMode="decimal"
                 value={rateBobToArs}
                 onChange={(e) => setRateBobToArs(e.target.value)}
@@ -46,8 +47,7 @@ export default function CurrencyConverter() {
             <div>
               <label className="block text-sm font-medium">Precio del USDT en Bolivia (BOB)</label>
               <input
-                type="number"
-                step="0.01"
+                type="text"
                 inputMode="decimal"
                 value={usdtPriceBob}
                 onChange={(e) => setUsdtPriceBob(e.target.value)}
