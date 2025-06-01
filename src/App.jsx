@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Copy, Check, Home, Info } from "lucide-react";
@@ -60,7 +61,7 @@ export default function CurrencyConverter() {
             <img
               src="/style_converter_logo_cropped.png"
               alt="Style Converter Logo"
-              className="max-w-xs w-full h-auto mb-4"
+              className="max-w-[160px] w-full h-auto mb-4"
             />
             <h1 className="text-3xl font-extrabold text-center text-indigo-700 tracking-tight">
               Calculadora de Divisas
