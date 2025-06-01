@@ -3,16 +3,15 @@ import { useState } from "react";
 export default function CurrencyConverter() {
   const [bob, setBob] = useState("");
   const [rateBobToArs, setRateBobToArs] = useState("5"); // 1 BOB = 5 ARS
-  const [rateArsToUsdt, setRateArsToUsdt] = useState("0.0012"); // 1 ARS = 0.0012 USDT
   const [usdtPriceBob, setUsdtPriceBob] = useState(""); // precio manual del USDT en BOB
 
   const parsedBob = parseFloat(bob) || 0;
   const parsedRateBobToArs = parseFloat(rateBobToArs) || 0;
-  const parsedRateArsToUsdt = parseFloat(rateArsToUsdt) || 0;
   const parsedUsdtPriceBob = parseFloat(usdtPriceBob) || 0;
 
   const ars = parsedBob * parsedRateBobToArs;
-  const usdt = ars * parsedRateArsToUsdt;
+  const arsPerUsdt = 1210.67; // valor fijo basado en Saldo.ar (17000 / 14.05)
+  const usdt = ars / arsPerUsdt;
   const bsGenerados = usdt * parsedUsdtPriceBob;
 
   return (
@@ -40,18 +39,6 @@ export default function CurrencyConverter() {
                 inputMode="decimal"
                 value={rateBobToArs}
                 onChange={(e) => setRateBobToArs(e.target.value)}
-                className="w-full p-2 border rounded-xl"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium">Tasa ARS → USDT</label>
-              <input
-                type="number"
-                step="0.00001"
-                inputMode="decimal"
-                value={rateArsToUsdt}
-                onChange={(e) => setRateArsToUsdt(e.target.value)}
                 className="w-full p-2 border rounded-xl"
               />
             </div>
